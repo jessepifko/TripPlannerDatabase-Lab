@@ -1,0 +1,49 @@
+CREATE DATABASE Trip_Planner
+
+Use Trip_Planner
+
+CREATE TABLE [User] (
+UserID INT NOT NULL,
+[Address] NVARCHAR (300) NOT NULL,
+DOB Date NOT NULL,
+PhoneNumber NVARCHAR(20) NOT NULL,
+PRIMARY KEY (UserId) 
+);
+
+
+go 
+
+CREATE TABLE Passport(
+ExpirationDate DATE NOT NULL,
+PassportNumber INT NOT NULL,
+[Address] NVARCHAR(50) NOT NULL,
+PassportId INT NOT NULL,
+PRIMARY KEY (PassportID)
+);
+ALTER TABLE [User] ADD PassportId INT FOREIGN KEY REFERENCES Passport(PassportId)  NOT NULL
+
+CREATE TABLE Trip(
+TripID INT NOT NULL,
+Budget INT NOT NULL,
+DestinationStart DATE NOT NULL,
+DestionationEnd DATE NOT NULL,
+TravelMode NVARCHAR(40) NOT NULL,
+StartDate DATE NOT NULL,
+EndDate DATE NOT NULL,
+PRIMARY KEY (TripID),
+);
+
+ALTER TABLE Trip ADD UserId INT FOREIGN KEY REFERENCES [User](UserId)  NOT NULL
+
+CREATE TABLE Hotel(
+CheckIn DATE NOT NULL,
+CheckOut DATE NOT NULL,
+CostPerNight DECIMAL NOT NULL,
+[Address] NVARCHAR(50) NOT NULL,
+PhoneNumber NVARCHAR(20) NOT NULL,
+HotelId INT NOT NULL,
+PRIMARY KEY (HotelId)
+);
+
+ALTER TABLE Hotel ADD TripId INT FOREIGN KEY REFERENCES Trip(TripId)  NOT NULL
+
